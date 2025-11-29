@@ -1,0 +1,10 @@
+{
+  "ground_truth": 19,
+  "predicted": 30,
+  "TP": 15,
+  "FP": 15,
+  "FN": 4,
+  "precision": 0.5,
+  "recall": 0.7894736842105263,
+  "mae_seconds": 0.4868287638125471
+}

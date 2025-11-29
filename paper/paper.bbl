@@ -1,0 +1,24 @@
+\begin{thebibliography}{1}\itemsep=-1pt
+
+\bibitem{brawl-stars-detection-mcxpk_dataset}
+brawlstarswalldetection.
+\newblock Brawl stars detection dataset.
+\newblock \url{ https://universe.roboflow.com/brawlstarswalldetection/brawl-stars-detection-mcxpk }, apr 2025.
+\newblock visited on 2025-06-04.
+
+\bibitem{10.1145/3341105.3373894}
+S.-K. Kang and J.-H. Lee.
+\newblock An e-sports video highlight generator using win-loss probability model.
+\newblock In {\em Proceedings of the 35th Annual ACM Symposium on Applied Computing}, SAC '20, page 915–922, New York, NY, USA, 2020. Association for Computing Machinery.
+
+\bibitem{RINGER2022100338}
+C.~Ringer, M.~A. Nicolaou, and J.~A. Walker.
+\newblock Autohighlight: Highlight detection in league of legends esports broadcasts via crowd-sourced data.
+\newblock {\em Machine Learning with Applications}, 9:100338, 2022.
+
+\bibitem{torres2025yolov8}
+J.~Torres and J.~T.~J. Austen.
+\newblock {YOLOv8} architecture: Deep dive into its architecture, Jan. 2025.
+\newblock Accessed 2025-06-04.
+
+\end{thebibliography}
