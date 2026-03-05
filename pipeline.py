@@ -92,14 +92,16 @@ def ffmpeg_cut(input_path: Path, start_s: float, duration_s: float, out_path: Pa
     subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
 
 
-def temporal_nms(timestamps: List[float], window: float = 3.0) -> List[float]:
-    # Merge kill‑banner detections that fall within `window` seconds.
-    timestamps.sort()
-    merged = []
-    for t in timestamps:
-        if not merged or t - merged[-1] > window:
-            merged.append(t)
-    return merged
+def temporal_nms(detections: List[Tuple[float, float]], window: float = 3.0) -> List[float]:
+    # Merge detections within `window` seconds, keeping the highest-confidence timestamp.
+    detections.sort(key=lambda x: x[0])
+    clusters: List[List[Tuple[float, float]]] = []
+    for t, conf in detections:
+        if not clusters or t - clusters[-1][0][0] > window:
+            clusters.append([(t, conf)])
+        else:
+            clusters[-1].append((t, conf))
+    return [max(cluster, key=lambda x: x[1])[0] for cluster in clusters]
 
 
 def frame_to_time(frame_idx: int, fps: float) -> float:
@@ -143,7 +145,7 @@ def infer_yolov8(args):
     pbar.close()
 
     # Temporal NMS
-    clean_ts = temporal_nms([t for t, _ in detections], window=args.merge_window)
+    clean_ts = temporal_nms(detections, window=args.merge_window)
     with open(args.out, "w") as f:
         json.dump(clean_ts, f, indent=2)
     print(f"Wrote {len(clean_ts)} timestamps to {args.out}")
@@ -261,7 +263,7 @@ def main():
     p_infer.add_argument("--out", default="detections.json")
     p_infer.add_argument("--rate", type=float, default=10.0, help="FPS to sample")
     p_infer.add_argument("--conf", type=float, default=0.2)
-    p_infer.add_argument("--merge_window", type=float, default=3.0)
+    p_infer.add_argument("--merge_window", type=float, default=5.0)
     p_infer.set_defaults(func=infer_yolov8)
 
     # Extract clips (NEEDS WORK)

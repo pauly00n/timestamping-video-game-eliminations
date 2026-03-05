@@ -137,7 +137,6 @@ def run_matching(video_path: Path,
         if max_val >= thr:
             detections.append(fi / vid_fps)
 
-        max_val = resp.max()
         if fi < 300:          # print the first 300 sampled frames
             print(f"{fi:06d}  max_corr={max_val:.3f}")
 
